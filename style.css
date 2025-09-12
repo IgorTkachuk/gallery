@@ -187,5 +187,37 @@ hr {
 
 main {
   padding: 40px;
+  height: 1409px;
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+main::before,
+main::after,
+main::nth-child(2) {
+  content: "";
+  flex-basis: 100%;
+  order: 4;
+}
+
+.item {
+  width: calc(100% / 4 - 29px);
+}
+
+.item:nth-child(4n + 1) {
+  order: 1;
+}
+
+.item:nth-child(4n + 2) {
+  order: 2;
+}
+
+.item:nth-child(4n + 3) {
+  order: 3;
+}
+
+.item:nth-child(4n + 4) {
+  order: 4;
 }
