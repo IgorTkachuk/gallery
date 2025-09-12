@@ -18,12 +18,24 @@
   --white: #ffffff;
 }
 
+body,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
 body {
   font-family: "Libre Baskerville", serif;
   font-weight: 700;
   font-style: normal;
   font-size: 14px;
   line-height: 28px;
+  background-color: var(--bleached-silk);
 }
 
 h1 {
@@ -39,6 +51,12 @@ h2 {
 h3 {
   font-size: 18px;
   line-height: 22px;
+}
+
+button {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 700;
+  font-style: normal;
 }
 
 .subhead-1 {
@@ -70,7 +88,8 @@ h3 {
   color: var(--aged-moustache-grey);
   background-color: transparent;
   text-transform: uppercase;
-  transition: all 0.5s ease-in;
+  transition: all 0.2s ease-in;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -145,4 +164,28 @@ h3 {
   background-image: url("./assets/shared/icon-view-image.svg");
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.container {
+  background-color: var(--white);
+  width: 1440px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  padding: 40px;
+  justify-content: space-between;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--cold-morning);
+  margin: 0 40px;
+}
+
+main {
+  padding: 40px;
+  display: flex;
 }
