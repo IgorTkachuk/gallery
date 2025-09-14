@@ -1,17 +1,31 @@
-const COLUMN_COUNT = 4;
+function makeGalleryItem({src,name}) {
+  const item = document.createElement('button');
+  item.classList.add("item");
 
-function makeGalleryItem(src) {
-  let tag = "img";
+  const el = document.createElement('img');
+  src && (el.setAttribute('src', src), el.setAttribute("alt", name));
 
-  if (!src) tag = "div";
+  item.appendChild(el);
 
-  const el = document.createElement(tag);
-  el.classList.add("item");
+  src || (item.style.display = 'none');
 
-  src && el.setAttribute("src", src);
-  src || (el.style.display = "none");
+  return item;
+}
 
-  return el;
+function makeGalleryItemDesc({name, artist}){
+  const elContainer = document.createElement("section");
+  elContainer.classList.add("description");
+
+  const elName = document.createElement("h2");
+  elName.innerText = name;
+  elContainer.appendChild(elName);
+
+  const elArtist = document.createElement("span");
+  elArtist.innerText = artist;
+  elArtist.classList.add("subhead-2");
+  elContainer.appendChild(elArtist);
+
+  return elContainer;
 }
 
 async function getData() {
@@ -23,12 +37,21 @@ async function getData() {
 
 async function main() {
   const data = await getData();
-  console.log(data);
 
   const container = document.querySelector("main");
 
   data.forEach((item) => {
-    const elem = makeGalleryItem(item?.images?.thumbnail);
+    const elem = makeGalleryItem({
+      src: item?.images?.thumbnail,
+      name: item?.name
+    });
+    const desc = makeGalleryItemDesc({
+      name: item?.name,
+      artist: item?.artist?.name
+    })
+
+    elem.appendChild(desc);
+
     container.appendChild(elem);
   });
 }
