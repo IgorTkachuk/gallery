@@ -64,17 +64,22 @@ async function main() {
 }
 
 function startSlideshow({ target: btnStartSS }) {
-  // debugger;
-  let content = document.querySelector(".gallery");
+  const content = document.querySelector(".gallery");
+  const slide = document.querySelector(".slide");
+  const footer = document.querySelector("footer");
 
   if (!mainContent) {
     btnStartSS.innerText = "stop slideshow";
-    mainContent = content.innerHTML;
-    content.innerHTML = "";
+    mainContent = "n";
+    content.style.display = "none";
+    slide.style.display = "block";
+    footer.style.display = "flex";
     return;
   }
 
   btnStartSS.innerText = "start slideshow";
-  content.innerHTML = mainContent;
+  content.style.display = "flex";
+  slide.style.display = "none";
+  footer.style.display = "none";
   mainContent = "";
 }
