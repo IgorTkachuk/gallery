@@ -178,7 +178,7 @@ button {
   background-repeat: no-repeat;
 }
 
-.button-view-image-lb {
+.button-view-image-pos {
   left: 16px;
   bottom: 16px;
 }
@@ -326,9 +326,16 @@ footer::after {
   display: none;
   position: relative;
   padding: 100px 40px 140px;
+
   img.hero-large {
     display: block;
     width: 475px;
+    height: auto;
+  }
+
+  img.hero-small {
+    display: none;
+    width: 327px;
     height: auto;
   }
 
@@ -337,9 +344,9 @@ footer::after {
     top: 100px;
     left: 460px;
     width: 445px;
-    height: 238px;
     background-color: var(--white);
     padding-left: 65px;
+    padding-bottom: 67px;
     h1 {
       margin-bottom: 24px;
       line-height: 64px;
@@ -403,11 +410,96 @@ footer::after {
   .item:nth-child(2n + 2) {
     order: 2;
   }
+
+  .slide {
+    height: 1160px;
+
+    .slide-description {
+      left: 283px;
+    }
+
+    .artist {
+      top: 336px;
+      left: 558px;
+    }
+
+    .slide-tail {
+      top: 710px;
+      left: 40px;
+
+      span {
+        width: 457px;
+        margin-left: 100px;
+        margin-top: -90px;
+        margin-bottom: 40px;
+      }
+    }
+  }
 }
 
 @media (max-width: 794px) {
   .container {
     width: 375px;
+  }
+
+  .slide {
+    padding: 24px;
+    height: 1000px;
+
+    .button-view-image-pos {
+      left: 16px;
+      top: 16px;
+      bottom: initial;
+    }
+
+    img.hero-large {
+      display: none;
+    }
+
+    img.hero-small {
+      display: block;
+    }
+
+    .slide-description {
+      top: 254px;
+      left: 24px;
+      width: 280px;
+      padding: 24px;
+      h1 {
+        font-size: 24px;
+        margin-bottom: 8px;
+        line-height: 29px;
+      }
+    }
+
+    .artist {
+      top: 358px;
+      left: 40px;
+      z-index: 1;
+
+      img {
+        width: 64px;
+        height: auto;
+      }
+    }
+
+    .slide-tail {
+      top: 400px;
+      right: initial;
+      width: 327px;
+
+      .dp {
+        font-size: 100px;
+        line-height: 100px;
+        margin-left: 89px;
+      }
+
+      span {
+        margin-top: -25px;
+        margin-bottom: 68px;
+        width: 329px;
+      }
+    }
   }
 
   header {
@@ -439,5 +531,17 @@ footer::after {
 
   .item:nth-child(n) {
     order: 1;
+  }
+
+  footer .buttons button.button {
+    width: 16px;
+    height: 16px;
+    margin-left: 24px;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+      background-size: cover;
+    }
   }
 }
