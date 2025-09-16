@@ -61,6 +61,22 @@ async function main() {
 
   const btnStartSS = document.querySelector("header button");
   btnStartSS.addEventListener("click", startSlideshow);
+
+  const btnViewImage = document.querySelector(".button-view-image");
+  btnViewImage.addEventListener("click", viewImage);
+
+  const btnCloseImage = document.querySelector(".modal button");
+  btnCloseImage.addEventListener("click", closeImage);
+}
+
+function closeImage() {
+  const modal = document.querySelector(".modal");
+  modal.style.display = "none";
+}
+
+function viewImage() {
+  const modal = document.querySelector(".modal");
+  modal.style.display = "flex";
 }
 
 function startSlideshow({ target: btnStartSS }) {

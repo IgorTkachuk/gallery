@@ -383,6 +383,40 @@ footer::after {
   }
 }
 
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+
+  & > div:first-of-type {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+
+  button {
+    display: block;
+    color: var(--white);
+    margin-bottom: 41px;
+    align-self: flex-end;
+  }
+
+  .desktop {
+    display: block;
+  }
+
+  .mobile {
+    display: none;
+  }
+}
+
 @media (min-width: 795px) and (max-width: 1465px) {
   .container {
     width: 768px;
@@ -434,6 +468,10 @@ footer::after {
         margin-bottom: 40px;
       }
     }
+  }
+
+  .modal img {
+    width: 670px;
   }
 }
 
@@ -542,6 +580,19 @@ footer::after {
       width: 16px;
       height: 16px;
       background-size: cover;
+    }
+  }
+
+  .modal {
+    img {
+      width: auto;
+    }
+
+    .desktop {
+      display: none;
+    }
+    .mobile {
+      display: block;
     }
   }
 }
