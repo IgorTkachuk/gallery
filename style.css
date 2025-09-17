@@ -124,8 +124,12 @@ button {
   margin-left: 40px;
 }
 
-.button-media:hover {
+.button-media:hover:not([disabled]) {
   opacity: 50%;
+}
+
+.button-media[disabled] {
+  cursor: auto;
 }
 
 .button-media::before {
@@ -402,11 +406,15 @@ footer::after {
     align-items: start;
   }
 
-  button {
+  button.button.button-lg {
     display: block;
     color: var(--white);
     margin-bottom: 41px;
     align-self: flex-end;
+  }
+
+  button.button.button-lg:hover {
+    opacity: 25%;
   }
 
   .desktop {
