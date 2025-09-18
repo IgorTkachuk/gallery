@@ -270,7 +270,7 @@ async function main() {
   const btnClose = document.querySelector(".modal button");
   const btnBack = document.querySelector(".button-media-back");
   const btnNext = document.querySelector(".button-media-next");
-  const linkSrc = document.querySelector(".slide-tail a");
+  const linkSrc = document.querySelector(".slide a");
   const progressBar = document.querySelector("footer");
 
   const slide = document.querySelector(".slide");
