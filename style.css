@@ -228,6 +228,7 @@ footer {
   position: relative;
   justify-content: space-between;
   padding: 25px 40px;
+  --progress: 0%;
 }
 
 footer::before {
@@ -248,7 +249,7 @@ footer::after {
   top: 0;
   left: 0;
   height: 1px;
-  width: 10%;
+  width: var(--progress);
   background-color: var(--aged-moustache-grey);
 }
 

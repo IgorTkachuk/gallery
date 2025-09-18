@@ -24,6 +24,8 @@ class App {
     modalImgDesktop,
     modalImgMobile,
     footer,
+    footerDescrName,
+    footerDescrAtist,
   }) {
     this.galleryElem = galleryElem;
     this.btnSlideshow = btnSlideshow;
@@ -45,19 +47,33 @@ class App {
     this.modalImgDesktop = modalImgDesktop;
     this.modalImgMobile = modalImgMobile;
     this.footer = footer;
+    this.footerDescrName = footerDescrName;
+    this.footerDescrAtist = footerDescrAtist;
 
     this.isSlideShow = false;
     this.isModal = false;
     this.data = {};
+
+    this.currentSlide = 0;
   }
 
   async init() {
-    this.btnSlideshow.addEventListener("click", (_) => this.slideShowHandler());
-    this.btnView.addEventListener("click", (_) => this.modalHandler());
-    this.btnClose.addEventListener("click", (_) => this.modalHandler());
+    this.galleryElem.addEventListener("click", (e) =>
+      this.galeryItemHandler(e)
+    );
+
+    this.btnSlideshow.addEventListener("click", () => this.slideShowHandler());
+    this.btnView.addEventListener("click", () => this.modalHandler());
+    this.btnClose.addEventListener("click", () => this.modalHandler());
+    this.btnNext.addEventListener("click", () => this.nextSlide());
+    this.btnBack.addEventListener("click", () => this.prevSlide());
 
     this.data = await this.getData();
-    this.gallery();
+    this.displayGallery();
+
+    this.setProgress();
+
+    this.data = this.data.filter((item) => !!item.name);
   }
 
   async getData() {
@@ -127,12 +143,19 @@ class App {
     return fragment;
   }
 
-  async gallery() {
+  async displayGallery() {
     const composedGallery = this.composeGallery(this.data);
     this.galleryElem.appendChild(composedGallery);
   }
 
-  slideShowHandler() {
+  resetSlideShow(startFrom) {
+    this.currentSlide = startFrom || 0;
+    this.composeSlide(this.data[this.currentSlide]);
+    this.setProgress();
+    this.setNavigation();
+  }
+
+  slideShowHandler(startFrom) {
     if (this.isSlideShow) {
       this.btnSlideshow.innerText = "start slideshow";
       this.galleryElem.style.display = "flex";
@@ -142,13 +165,13 @@ class App {
       return;
     }
 
+    this.resetSlideShow(startFrom);
+
     this.btnSlideshow.innerText = "stop slideshow";
     this.galleryElem.style.display = "none";
     this.slide.style.display = "block";
     this.footer.style.display = "flex";
     this.isSlideShow = !this.isSlideShow;
-
-    this.composeSlide(this.data[0]);
   }
 
   modalHandler() {
@@ -182,6 +205,61 @@ class App {
     this.linkSrc.setAttribute("href", source);
     this.modalImgDesktop.setAttribute("src", gallery);
     this.modalImgMobile.setAttribute("src", thumbnail);
+
+    this.footerDescrName.innerText = name;
+    this.footerDescrAtist.innerText = artistName;
+  }
+
+  determineProgress() {
+    return ((this.currentSlide + 1) * 100) / this.data.length;
+  }
+
+  setProgress() {
+    const progress = `${this.determineProgress()}%`;
+    this.progressBar.style.setProperty("--progress", progress);
+  }
+
+  setNavigation() {
+    this.setProgress();
+
+    this.btnBack.removeAttribute("disabled");
+    this.btnBack.classList.remove("disabled");
+    this.btnNext.removeAttribute("disabled");
+    this.btnNext.classList.remove("disabled");
+
+    if (this.currentSlide === this.data.length - 1) {
+      this.btnNext.setAttribute("disabled", "");
+      this.btnNext.classList.add("disabled");
+      return;
+    }
+
+    if (this.currentSlide === 0) {
+      this.btnBack.setAttribute("disabled", "");
+      this.btnBack.classList.add("disabled");
+      return;
+    }
+  }
+
+  nextSlide() {
+    this.currentSlide += 1;
+    this.composeSlide(this.data[this.currentSlide]);
+    this.setNavigation();
+  }
+
+  prevSlide() {
+    this.currentSlide -= 1;
+    this.composeSlide(this.data[this.currentSlide]);
+    this.setNavigation();
+  }
+
+  galeryItemHandler({ target }) {
+    const btn = target.closest("button");
+    if (!btn) return;
+
+    const pictureName = btn.querySelector("h2")?.innerText;
+    const slideIdx = this.data.findIndex((item) => item.name === pictureName);
+
+    this.slideShowHandler(slideIdx);
   }
 }
 
@@ -193,7 +271,7 @@ async function main() {
   const btnBack = document.querySelector(".button-media-back");
   const btnNext = document.querySelector(".button-media-next");
   const linkSrc = document.querySelector(".slide-tail a");
-  const progressBar = document.querySelector("footer::after");
+  const progressBar = document.querySelector("footer");
 
   const slide = document.querySelector(".slide");
   const slideImgLg = document.querySelector(".slide img.hero-large");
@@ -212,6 +290,10 @@ async function main() {
   const modalImgMobile = document.querySelector(".modal .mobile");
 
   const footer = document.querySelector("footer");
+  const footerDescrName = document.querySelector(".footer-description h3");
+  const footerDescrAtist = document.querySelector(
+    ".footer-description .subhead-2"
+  );
 
   const app = new App({
     galleryElem,
@@ -234,6 +316,8 @@ async function main() {
     modalImgDesktop,
     modalImgMobile,
     footer,
+    footerDescrName,
+    footerDescrAtist,
   });
 
   app.init();
